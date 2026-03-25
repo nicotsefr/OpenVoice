@@ -14,12 +14,14 @@ import librosa
 from whisper_timestamped.transcribe import get_audio_tensor, get_vad_segments
 
 model_size = "medium"
-# Run on GPU with FP16
+# Run on GPU with FP16 if available, otherwise CPU with int8
 model = None
 def split_audio_whisper(audio_path, audio_name, target_dir='processed'):
     global model
     if model is None:
-        model = WhisperModel(model_size, device="cuda", compute_type="float16")
+        device_w = "cuda" if torch.cuda.is_available() else "cpu"
+        compute_t = "float16" if device_w == "cuda" else "int8"
+        model = WhisperModel(model_size, device=device_w, compute_type=compute_t)
     audio = AudioSegment.from_file(audio_path)
     max_len = len(audio)
 

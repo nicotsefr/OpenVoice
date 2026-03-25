@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /c/Code/OpenVoice/checkpoints* -name *.json)",
+      "Bash(pip --version)",
+      "Bash(pip list:*)",
+      "Bash(grep -r \"import torch\\\\|import gradio\\\\|from melo\\\\|import melo\" /c/Code/OpenVoice/*.ipynb)",
+      "Bash(conda --version)",
+      "Bash(nvidia-smi:*)",
+      "Bash(ls /c/Python3*/python.exe)",
+      "Read(//c/Users/SébastienNICOT/AppData/Local/Programs/**)",
+      "Bash(py -0p)",
+      "Bash(ffmpeg -version)",
+      "Bash(py -3.13 --version)",
+      "Bash(winget install:*)",
+      "Bash(py -3.13 -m venv .venv)",
+      "Bash(.venv/Scripts/pip install:*)",
+      "Bash(.venv/Scripts/python -c \"import numpy; print\\(numpy.__version__\\)\")",
+      "Bash(curl -L -o checkpoints_1226.zip https://myshell-public-repo-host.s3.amazonaws.com/openvoice/checkpoints_1226.zip)"
+    ]
+  }
+}

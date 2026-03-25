@@ -27,9 +27,9 @@ tone_color_converter = ToneColorConverter(f'{ckpt_converter}/config.json', devic
 tone_color_converter.load_ckpt(f'{ckpt_converter}/checkpoint.pth')
 
 # load speaker embeddings
-en_source_default_se = torch.load(f'{en_ckpt_base}/en_default_se.pth').to(device)
-en_source_style_se = torch.load(f'{en_ckpt_base}/en_style_se.pth').to(device)
-zh_source_se = torch.load(f'{zh_ckpt_base}/zh_default_se.pth').to(device)
+en_source_default_se = torch.load(f'{en_ckpt_base}/en_default_se.pth', weights_only=True).to(device)
+en_source_style_se = torch.load(f'{en_ckpt_base}/en_style_se.pth', weights_only=True).to(device)
+zh_source_se = torch.load(f'{zh_ckpt_base}/zh_default_se.pth', weights_only=True).to(device)
 
 # This online demo mainly supports English and Chinese
 supported_languages = ['zh', 'en']
@@ -224,7 +224,7 @@ with gr.Blocks(analytics_enabled=False) as demo:
             with gr.Row():
                 gr.Markdown(description)
         with gr.Column():
-            gr.Video('https://github.com/myshell-ai/OpenVoice/assets/40556743/3cba936f-82bf-476c-9e52-09f0f417bb2f', autoplay=True)
+            gr.Video(value='https://github.com/myshell-ai/OpenVoice/assets/40556743/3cba936f-82bf-476c-9e52-09f0f417bb2f', autoplay=True)
             
     with gr.Row():
         gr.HTML(wrapped_markdown_content)
@@ -266,8 +266,6 @@ with gr.Blocks(analytics_enabled=False) as demo:
             gr.Examples(examples,
                         label="Examples",
                         inputs=[input_text_gr, style_gr, ref_gr, tos_gr],
-                        outputs=[out_text_gr, audio_gr, ref_audio_gr],
-                        fn=predict,
                         cache_examples=False,)
             tts_button.click(predict, [input_text_gr, style_gr, ref_gr, tos_gr], outputs=[out_text_gr, audio_gr, ref_audio_gr])
 
